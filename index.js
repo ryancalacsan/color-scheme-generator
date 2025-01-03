@@ -27,8 +27,14 @@ function generateScheme() {
       schemeHtml = data.colors.map((color) => {
         return `
           <div class="color" style="background-color: ${color.hex.value}">
-            <p>#123456</p>
-            <p>color name</p>
+          <div class='color-info'>
+            <p class='color-hex' style="color:${getContrastYIQ(
+              color.hex.clean
+            )}">${color.hex.value}</p>
+            <p class='color-name' style="color:${getContrastYIQ(
+              color.hex.clean
+            )}">${color.name.value}</p>
+            </div>
           </div>
           `
       })
@@ -36,5 +42,13 @@ function generateScheme() {
     })
 }
 
+// get contrast of bg color to set text to black or white
+function getContrastYIQ(hexcolor) {
+  const r = parseInt(hexcolor.substr(0, 2), 16)
+  const g = parseInt(hexcolor.substr(2, 2), 16)
+  const b = parseInt(hexcolor.substr(4, 2), 16)
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000
+  return yiq >= 128 ? "black" : "white"
+}
+
 // TODO
-// Set font color based on backgruond color
