@@ -18,19 +18,23 @@
 
       <div class="scheme-options">
         <div class="scheme-options-container">
-          <label for="picked-color">Pick a color</label>
-          <input type="color" name="picked-color" id="picked-color" />
-          <label for="sheme-select">Pick a Method</label>
-          <select name="scheme-select" id="scheme-select">
-            <option value="monochrome">monochrome</option>
-            <option value="monochrome-dark">monochrome dark</option>
-            <option value="monochrome-light">monochrome light</option>
-            <option value="analogic">analogic</option>
-            <option value="complement">complement</option>
-            <option value="analogic-complement">analogic complement</option>
-            <option value="triad">triad</option>
-            <option value="quad">quad</option>
-          </select>
+          <div class="wrap">
+            <label for="picked-color">Color :</label>
+            <input type="color" name="picked-color" id="picked-color" />
+          </div>
+          <div>
+            <label for="sheme-select">Method :</label>
+            <select name="scheme-select" id="scheme-select">
+              <option value="monochrome">monochrome</option>
+              <option value="monochrome-dark">monochrome dark</option>
+              <option value="monochrome-light">monochrome light</option>
+              <option value="analogic">analogic</option>
+              <option value="complement">complement</option>
+              <option value="analogic-complement">analogic complement</option>
+              <option value="triad">triad</option>
+              <option value="quad">quad</option>
+            </select>
+          </div>
         </div>
         <div class="scheme-options-container">
           <button id="generate-btn" class="btn">Generate</button>
