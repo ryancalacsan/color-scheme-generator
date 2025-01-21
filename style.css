@@ -91,12 +91,18 @@ h1 {
 
 /* color picker */
 
-.color-pick {
+.scheme-options {
   display: flex;
+  flex-direction: column;
   gap: 1em;
-  justify-content: center;
 }
 
+.scheme-options-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
 #picked-color {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -123,12 +129,17 @@ h1 {
   cursor: pointer;
 }
 
-#generate-btn {
+.btn {
   background-color: transparent;
   border: 1px solid black;
   border-radius: 15px;
   cursor: pointer;
   background-color: transparent;
+  padding: 0.4em;
+}
+
+.btn:hover {
+  background-color: rgb(235, 235, 235);
 }
 
 .scheme {

@@ -15,19 +15,27 @@
   <body>
     <header>
       <h1>Generate a Scheme</h1>
-      <div class="color-pick">
-        <input type="color" name="picked-color" id="picked-color" />
-        <select name="scheme-select" id="scheme-select">
-          <option value="monochrome">monochrome</option>
-          <option value="monochrome-dark">monochrome dark</option>
-          <option value="monochrome-light">monochrome light</option>
-          <option value="analogic">analogic</option>
-          <option value="complement">complement</option>
-          <option value="analogic-complement">analogic complement</option>
-          <option value="triad">triad</option>
-          <option value="quad">quad</option>
-        </select>
-        <button id="generate-btn">Generate</button>
+
+      <div class="scheme-options">
+        <div class="scheme-options-container">
+          <label for="picked-color">Pick a color</label>
+          <input type="color" name="picked-color" id="picked-color" />
+          <label for="sheme-select">Pick a Method</label>
+          <select name="scheme-select" id="scheme-select">
+            <option value="monochrome">monochrome</option>
+            <option value="monochrome-dark">monochrome dark</option>
+            <option value="monochrome-light">monochrome light</option>
+            <option value="analogic">analogic</option>
+            <option value="complement">complement</option>
+            <option value="analogic-complement">analogic complement</option>
+            <option value="triad">triad</option>
+            <option value="quad">quad</option>
+          </select>
+        </div>
+        <div class="scheme-options-container">
+          <button id="generate-btn" class="btn">Generate</button>
+          <button id="random-btn" class="btn">Randomize</button>
+        </div>
       </div>
     </header>
     <section class="scheme" id="scheme"></section>

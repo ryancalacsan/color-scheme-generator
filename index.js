@@ -1,18 +1,26 @@
 const pickerEl = document.getElementById("picked-color")
 const schemeSelectEl = document.getElementById("scheme-select")
-const GenerateBtn = document.getElementById("generate-btn")
 const schemeEl = document.getElementById("scheme")
+const GenerateBtn = document.getElementById("generate-btn")
+const RandomBtn = document.getElementById("random-btn")
 
-// set random color on load
-const randomHexColorCode = () => {
-  let n = (Math.random() * 0xfffff * 1000000).toString(16)
-  return "#" + n.slice(0, 6)
+function generateRandomScheme() {
+  pickRandomColor()
+  pickRandomScheme()
+  generateScheme()
 }
 
-pickerEl.value = randomHexColorCode()
-generateScheme()
+function pickRandomColor() {
+  let n = (Math.random() * 0xfffff * 1000000).toString(16)
+  pickerEl.value = "#" + n.slice(0, 6)
+}
 
-GenerateBtn.addEventListener("click", generateScheme)
+function pickRandomScheme() {
+  const options = schemeSelectEl.options
+  const randomIndex = Math.floor(Math.random() * options.length)
+
+  schemeSelectEl.selectedIndex = randomIndex
+}
 
 function generateScheme() {
   let pickedColor = pickerEl.value.slice(1)
@@ -26,17 +34,17 @@ function generateScheme() {
     .then((data) => {
       schemeHtml = data.colors.map((color) => {
         return `
-          <div class="color" style="background-color: ${color.hex.value}">
-          <div class='color-info'>
-            <p class='color-hex' style="color:${getContrastYIQ(
-              color.hex.clean
-            )}">${color.hex.value}</p>
-            <p class='color-name' style="color:${getContrastYIQ(
-              color.hex.clean
-            )}">${color.name.value}</p>
-            </div>
-          </div>
-          `
+      <div class="color" style="background-color: ${color.hex.value}">
+      <div class='color-info'>
+      <p class='color-hex' style="color:${getContrastYIQ(color.hex.clean)}">${
+          color.hex.value
+        }</p>
+      <p class='color-name' style="color:${getContrastYIQ(color.hex.clean)}">${
+          color.name.value
+        }</p>
+      </div>
+      </div>
+      `
       })
       schemeEl.innerHTML = schemeHtml.join(" ")
     })
@@ -51,4 +59,8 @@ function getContrastYIQ(hexcolor) {
   return yiq >= 128 ? "black" : "white"
 }
 
-// TODO
+GenerateBtn.addEventListener("click", generateScheme)
+RandomBtn.addEventListener("click", generateRandomScheme)
+
+// generate random scheme on load
+generateRandomScheme()
