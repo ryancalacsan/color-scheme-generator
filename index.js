@@ -44,9 +44,9 @@ function generateScheme() {
 
 // get contrast of bg color to set text to black or white
 function getContrastYIQ(hexcolor) {
-  const r = parseInt(hexcolor.substr(0, 2), 16)
-  const g = parseInt(hexcolor.substr(2, 2), 16)
-  const b = parseInt(hexcolor.substr(4, 2), 16)
+  const r = parseInt(hexcolor.slice(0, 2), 16)
+  const g = parseInt(hexcolor.slice(2, 4), 16)
+  const b = parseInt(hexcolor.slice(4, 6), 16)
   const yiq = (r * 299 + g * 587 + b * 114) / 1000
   return yiq >= 128 ? "black" : "white"
 }
