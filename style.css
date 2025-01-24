@@ -15,11 +15,7 @@ body {
 
 header {
   text-align: center;
-  padding: 1em;
-}
-
-h1 {
-  padding-bottom: 0.5em;
+  padding-bottom: 1em;
 }
 
 /* Color Picker */
@@ -41,6 +37,7 @@ h1 {
   gap: 1em;
 }
 
+/* Color Picker Input */
 #picked-color {
   appearance: none;
   width: 50px;
@@ -50,10 +47,7 @@ h1 {
   cursor: pointer;
 }
 
-#picked-color::-webkit-color-swatch {
-  border-radius: 15px;
-  border: none;
-}
+#picked-color::-webkit-color-swatch,
 #picked-color::-moz-color-swatch {
   border-radius: 15px;
   border: none;
@@ -65,11 +59,12 @@ h1 {
   cursor: pointer;
 }
 
+/* Button Styles */
 .btn {
   background-color: transparent;
   border: 1px solid black;
   border-radius: 15px;
-  padding: 0.4em;
+  padding: 0.4em 0.8em;
   cursor: pointer;
 }
 
@@ -80,16 +75,25 @@ h1 {
 /* Color Scheme Display */
 .scheme {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* default to vertical on small screens */
   flex: 1;
   font-weight: 600;
 }
 
+/* Color Block */
 .color {
+  position: relative;
   height: 100%;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+  text-align: center;
 }
 
+/* Color Info */
 .color-info {
   display: flex;
   flex-direction: column;
@@ -98,10 +102,10 @@ h1 {
   padding-left: 2.25em;
 }
 
-/* Responsive design */
+/* Responsive Layout for Larger Screens */
 @media (min-width: 765px) {
   .scheme {
-    flex-direction: row;
+    flex-direction: row; /* Stack color blocks horizontally */
   }
 
   .color-info {
@@ -110,4 +114,128 @@ h1 {
     padding-left: 0;
     padding-bottom: 3em;
   }
+}
+
+/* Copy Button */
+.copy-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+
+/* Show Copy Button on Hover */
+.color:hover .copy-btn {
+  display: block;
+}
+
+/* Tooltip for the Copy Button */
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show Tooltip on Hover of Copy Button */
+.copy-btn:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Feedback when Hex is Copied */
+.copy-btn.copied {
+  background-color: #4caf50;
+  transform: scale(1.1);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 765px) {
+  .color-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+  }
+
+  .color-hex,
+  .color-name {
+    font-size: 1.1rem;
+  }
+
+  .color {
+    height: 150px;
+    width: 100%;
+  }
+
+  /* Show Copy Button Always on Small Screens */
+  .copy-btn {
+    display: block;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 500px) {
+  /* Adjustments for very small screens (e.g., smaller mobile devices) */
+  .color-info {
+    padding: 0.25em;
+  }
+
+  .color-hex,
+  .color-name {
+    font-size: 1rem;
+  }
+}
+
+/* Animation */
+@keyframes rainbow {
+  0% {
+    background-position: -100% -100%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Rainbow Effect*/
+h1 {
+  font-weight: bold;
+  background-image: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #4b0082,
+    #9400d3
+  );
+  background-size: 400% 400%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: rainbow 15s linear infinite;
 }

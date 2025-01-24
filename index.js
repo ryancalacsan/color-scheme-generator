@@ -69,6 +69,11 @@ function createColorBlock(color) {
         <p class="color-hex" style="color: ${textColor}">${color.hex.value}</p>
         <p class="color-name" style="color: ${textColor}">${color.name.value}</p>
       </div>
+      <!-- Copy button, hidden by default -->
+      <button class="copy-btn" data-hex="${color.hex.value}" aria-label="Copy hex">
+        &#x2398;
+        <span class="tooltip">Copy Hex</span>
+      </button>
     </div>
   `
 }
@@ -81,6 +86,34 @@ function getContrastYIQ(hexcolor) {
   const yiq = (r * 299 + g * 587 + b * 114) / 1000
   return yiq >= 128 ? "black" : "white"
 }
+
+// Handle copying the hex code to clipboard
+function handleCopyButtonClick(event) {
+  const button = event.target.closest(".copy-btn")
+  const hexValue = button.getAttribute("data-hex")
+
+  // Copy the hex value to the clipboard
+  navigator.clipboard
+    .writeText(hexValue)
+    .then(() => {
+      console.log(`Copied ${hexValue} to clipboard!`)
+      // Optionally show feedback here, e.g., "Copied" tooltip
+      button.classList.add("copied")
+      setTimeout(() => {
+        button.classList.remove("copied")
+      }, 1000)
+    })
+    .catch((err) => {
+      console.error("Failed to copy hex:", err)
+    })
+}
+
+// Add event listener for copy button click
+document.addEventListener("click", function (event) {
+  if (event.target.closest(".copy-btn")) {
+    handleCopyButtonClick(event)
+  }
+})
 
 // Error handling for fetch requests
 function handleError(error) {
