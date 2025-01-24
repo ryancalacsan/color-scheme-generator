@@ -19,11 +19,20 @@
         <div class="scheme-options-container">
           <div class="wrap">
             <label for="picked-color">Color:</label>
-            <input type="color" name="picked-color" id="picked-color" />
+            <input
+              type="color"
+              name="picked-color"
+              id="picked-color"
+              aria-label="Pick a color"
+            />
           </div>
           <div>
             <label for="scheme-select">Method:</label>
-            <select name="scheme-select" id="scheme-select">
+            <select
+              name="scheme-select"
+              id="scheme-select"
+              aria-label="Select a color scheme method"
+            >
               <option value="monochrome">Monochrome</option>
               <option value="monochrome-dark">Monochrome Dark</option>
               <option value="monochrome-light">Monochrome Light</option>
@@ -36,12 +45,24 @@
           </div>
         </div>
         <div class="scheme-options-container">
-          <button id="generate-btn" class="btn">Generate</button>
-          <button id="random-btn" class="btn">Randomize</button>
+          <button
+            id="generate-btn"
+            class="btn"
+            aria-label="Generate color scheme"
+          >
+            Generate
+          </button>
+          <button
+            id="random-btn"
+            class="btn"
+            aria-label="Randomize color scheme"
+          >
+            Randomize
+          </button>
         </div>
       </div>
     </header>
-    <section class="scheme" id="scheme"></section>
+    <section class="scheme" id="scheme" aria-live="polite"></section>
     <script src="index.js"></script>
   </body>
 </html>
