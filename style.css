@@ -166,7 +166,6 @@ header {
 /* Feedback when Hex is Copied */
 .copy-btn.copied {
   background-color: #4caf50;
-  transform: scale(1.1);
 }
 
 /* Responsive Design for Smaller Screens */
@@ -237,4 +236,11 @@ h1 {
   color: transparent;
   -webkit-background-clip: text;
   animation: rainbow 15s linear infinite;
+}
+/* error message  */
+.error-message {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
 }

@@ -4,6 +4,7 @@ const schemeSelectEl = document.getElementById("scheme-select")
 const schemeEl = document.getElementById("scheme")
 const generateBtn = document.getElementById("generate-btn")
 const randomBtn = document.getElementById("random-btn")
+const schemeCache = {}
 
 // Event listeners
 generateBtn.addEventListener("click", generateScheme)
@@ -86,26 +87,41 @@ function getContrastYIQ(hexcolor) {
   const yiq = (r * 299 + g * 587 + b * 114) / 1000
   return yiq >= 128 ? "black" : "white"
 }
+// Cache scheme
+function fetchColorScheme(color, scheme) {
+  const cacheKey = `${color}-${scheme}`
+  if (schemeCache[cacheKey]) {
+    return Promise.resolve(schemeCache[cacheKey])
+  }
+  const url = `https://www.thecolorapi.com/scheme?hex=${color}&mode=${scheme}`
+  return fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      schemeCache[cacheKey] = data
+      return data
+    })
+}
 
 // Handle copying the hex code to clipboard
 function handleCopyButtonClick(event) {
   const button = event.target.closest(".copy-btn")
   const hexValue = button.getAttribute("data-hex")
 
-  // Copy the hex value to the clipboard
   navigator.clipboard
     .writeText(hexValue)
     .then(() => {
-      console.log(`Copied ${hexValue} to clipboard!`)
-      // Optionally show feedback here, e.g., "Copied" tooltip
-      button.classList.add("copied")
-      setTimeout(() => {
-        button.classList.remove("copied")
-      }, 1000)
+      showCopyFeedback(button)
     })
     .catch((err) => {
       console.error("Failed to copy hex:", err)
     })
+}
+
+function showCopyFeedback(button) {
+  button.classList.add("copied")
+  setTimeout(() => {
+    button.classList.remove("copied")
+  }, 1000)
 }
 
 // Add event listener for copy button click
@@ -118,5 +134,10 @@ document.addEventListener("click", function (event) {
 // Error handling for fetch requests
 function handleError(error) {
   console.error("Error fetching color scheme:", error)
-  alert("There was an issue generating the color scheme. Please try again.")
+  const errorMessage = document.createElement("div")
+  errorMessage.classList.add("error-message")
+  errorMessage.textContent =
+    "Sorry, we couldn't generate the color scheme. Please try again!"
+  schemeEl.innerHTML = ""
+  schemeEl.appendChild(errorMessage)
 }
